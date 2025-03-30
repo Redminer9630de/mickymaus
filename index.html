@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namefehlt</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; }
+    </style>
+</head>
+<body>
+  
+    <h2>Namefehlt</h2>
+  
+    <input type="file" id="fileInput">
+    <button onclick="saveFile()">Datei speichern</button>
+    <button onclick="downloadFile()">Datei herunterladen</button>
+
+    <script>
+        function saveFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length === 0) {
+                alert("Bitte eine Datei auswählen.");
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            // Datei auf dem Server speichern
+            console.log("Datei speichern:", file.name);
+        }
+
+        function downloadFile() {
+            // Datei vom Server laden und als Download bereitstellen
+            console.log("Datei herunterladen");
+        }
+    </script>
+</body>
+</html>
