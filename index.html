@@ -44,27 +44,24 @@
             console.log("Datei herunterladen");
         }
         
-        function showFile() {
+        function showFiles() {
             const fileInput = document.getElementById('fileInput');
             const fileContainer = document.getElementById('fileContainer');
+    
+            fileContainer.innerHTML = '';
 
-            if (fileInput.files.length === 0) return;
-
-            const file = fileInput.files[0];
-
-            fileContainer.innerHTML = `
-                <div class="file-container">
-                    <button class="delete-btn" onclick="deleteFile()">×</button>
+            for (const file of fileInput.files) {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'file-container';
+                fileDiv.innerHTML = `
                     <span>${file.name}</span>
-                </div>
-            `;
+                    <button class="delete-btn" onclick="deleteFile(this)">×</button>
+                `;
+                fileContainer.appendChild(fileDiv);
+            }
         }
 
-        function deleteFile() {
-            document.getElementById('fileContainer').innerHTML = '';
-            document.getElementById('fileInput').value = ''; // Datei-Input zurücksetzen
-        }
-
+        function deleteFile(button) { button.parentElement.remove(); }
     </script>
 </body>
 </html>
