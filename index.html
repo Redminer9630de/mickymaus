@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namefehlt</title>
+    <title>Micky Maus</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { background-color: #2ecc71; color: white; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; }
+        #fileInput { display: none; }
+        .custom-file-upload { display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; }
+        .custom-file-upload:hover { background-color: #0056b3; }
+        .file-container { display: inline-block; position: relative; padding: 10px; border: 1px solid #ddd; margin-top: 10px; border-radius: 5px; }
+        .delete-btn { position: absolute; top: 5px; left: 5px; background: red; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 14px; cursor: pointer; }
+        .delete-btn:hover { background: darkred; }       
     </style>
 </head>
 <body>
   
-    <h2>Namefehlt</h2>
-  
-    <input type="file" id="fileInput">
+    <h2>Micky Maus</h2>
+    
+    <label for="fileInput" class="custom-file-upload">Datei auswählen</label>
+    <input type="file" id="fileInput" onchange="showFile()">
+    <div id="fileContainer"></div>
     <button onclick="saveFile()">Datei speichern</button>
     <button onclick="downloadFile()">Datei herunterladen</button>
 
@@ -35,6 +43,28 @@
             // Datei vom Server laden und als Download bereitstellen
             console.log("Datei herunterladen");
         }
+        
+        function showFile() {
+            const fileInput = document.getElementById('fileInput');
+            const fileContainer = document.getElementById('fileContainer');
+
+            if (fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+
+            fileContainer.innerHTML = `
+                <div class="file-container">
+                    <button class="delete-btn" onclick="deleteFile()">×</button>
+                    <span>${file.name}</span>
+                </div>
+            `;
+        }
+
+        function deleteFile() {
+            document.getElementById('fileContainer').innerHTML = '';
+            document.getElementById('fileInput').value = ''; // Datei-Input zurücksetzen
+        }
+
     </script>
 </body>
 </html>
